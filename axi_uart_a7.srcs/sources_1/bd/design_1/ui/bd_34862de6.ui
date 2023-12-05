@@ -1,0 +1,43 @@
+{
+   "ActiveEmotionalView":"No Loops",
+   "Default View_ScaleFactor":"1.0",
+   "Default View_TopLeft":"-351,-294",
+   "DisplayTieOff":"1",
+   "ExpandedHierarchyInLayout":"",
+   "No Loops_ExpandedHierarchyInLayout":"",
+   "No Loops_Layout":"# # String gsaved with Nlview 7.0r4  2019-12-20 bk=1.5203 VDI=41 GEI=36 GUI=JA:10.0 TLS
+#  -string -flagsOSRD
+preplace port S_AXI -pg 1 -lvl 0 -x 0 -y 70 -defaultsOSRD
+preplace port port-id_clk -pg 1 -lvl 0 -x 0 -y 90 -defaultsOSRD
+preplace port port-id_resetn -pg 1 -lvl 0 -x 0 -y 130 -defaultsOSRD
+preplace inst simframe_ctl -pg 1 -lvl 1 -x 190 -y 70 -defaultsOSRD -pinDir AXIS_OUT right -pinY AXIS_OUT 0R -pinDir S_AXI left -pinY S_AXI 0L -pinDir clk left -pinY clk 20L -pinDir resetn left -pinY resetn 60L -pinBusDir CYCLES_PER_ROW right -pinBusY CYCLES_PER_ROW 40R -pinBusDir ROWS_PER_FRAME right -pinBusY ROWS_PER_FRAME 60R
+preplace inst simframe_gen -pg 1 -lvl 2 -x 540 -y 70 -swap {0 1 2 3 4 5 6 7 8 9 12 10 11} -defaultsOSRD -pinDir AXIS_IN left -pinY AXIS_IN 0L -pinDir AXIS_OUT right -pinY AXIS_OUT 0R -pinDir clk left -pinY clk 20L -pinDir resetn left -pinY resetn 120L -pinBusDir CYCLES_PER_ROW left -pinBusY CYCLES_PER_ROW 40L -pinBusDir ROWS_PER_FRAME left -pinBusY ROWS_PER_FRAME 60L
+preplace netloc clk_1 1 0 2 20 10 360J
+preplace netloc resetn_1 1 0 2 20 190 NJ
+preplace netloc simframe_ctl_ROWS_PER_FRAME 1 1 1 N 130
+preplace netloc simframe_ctl_CYCLES_PER_ROW 1 1 1 N 110
+preplace netloc Conn2 1 0 1 NJ 70
+preplace netloc simframe_ctl_AXIS_OUT 1 1 1 N 70
+levelinfo -pg 1 0 190 540 720
+pagesize -pg 1 -db -bbox -sgen -100 0 720 250
+",
+   "No Loops_ScaleFactor":"1.0",
+   "No Loops_TopLeft":"-366,-274",
+   "guistr":"# # String gsaved with Nlview 7.0r4  2019-12-20 bk=1.5203 VDI=41 GEI=36 GUI=JA:10.0 TLS
+#  -string -flagsOSRD
+preplace port S_AXI -pg 1 -lvl 0 -x 0 -y 70 -defaultsOSRD
+preplace port port-id_clk -pg 1 -lvl 0 -x 0 -y 90 -defaultsOSRD
+preplace port port-id_resetn -pg 1 -lvl 0 -x 0 -y 110 -defaultsOSRD
+preplace inst simframe_ctl -pg 1 -lvl 1 -x 190 -y 90 -defaultsOSRD
+preplace inst simframe_gen -pg 1 -lvl 2 -x 560 -y 110 -defaultsOSRD
+preplace netloc clk_1 1 0 2 20 10 380
+preplace netloc resetn_1 1 0 2 20 170 380J
+preplace netloc simframe_ctl_ROWS_PER_FRAME 1 1 1 360 110n
+preplace netloc simframe_ctl_CYCLES_PER_ROW 1 1 1 370 90n
+preplace netloc Conn2 1 0 1 NJ 70
+preplace netloc simframe_ctl_AXIS_OUT 1 1 1 N 70
+levelinfo -pg 1 0 190 560 750
+pagesize -pg 1 -db -bbox -sgen -100 0 750 210
+"
+}
+
