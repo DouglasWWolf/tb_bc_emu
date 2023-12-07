@@ -66,8 +66,11 @@ module simframe_ctl #
 
     //=========  These configure the geometry of the generated frame  ==========
     output reg[15:0] CYCLES_PER_PKT,
-    output reg[15:0] PKTS_PER_FRAME
-    //==========================================================================    
+    output reg[15:0] PKTS_PER_FRAME,
+    //========================================================================== 
+
+    // This will strobe high for one cycle any time a new job starts
+    output reg new_job
 );  
 
     // Any time the register map of this module changes, this number should
@@ -212,6 +215,9 @@ module simframe_ctl #
         if (f0_reset_counter) f0_reset_counter <= f0_reset_counter - 1;
         if (f1_reset_counter) f1_reset_counter <= f1_reset_counter - 1;
 
+        // This will strobe-high for one cycle to indicate start of a new job
+        new_job <= 0;
+
         // When one of these bit strobes high, "input_value" is loaded into a FIFO
         fifo_load_strobe <= 0;
 
@@ -281,18 +287,25 @@ module simframe_ctl #
                         if (~active_fifo[1]) begin
                             input_value      <= ashi_wdata;
                             fifo_load_strobe <= 2;
-                            f0_count         <= f1_count + 1;
+                            f1_count         <= f1_count + 1;
                         end
 
 
                     // Don't allow the user to attempt to start both FIFOs at once
                     REG_START:
-                        if      (ashi_wdata[1:0] == 2'b00)
+                        if (ashi_wdata[1:0] == 2'b00) begin
                             fifo_on_deck <= 0;
-                        else if (ashi_wdata[1:0] == 2'b01 && f0_count)
-                            fifo_on_deck <= ashi_wdata;
-                        else if (ashi_wdata[1:0] == 2'b10 && f1_count)
-                            fifo_on_deck <= ashi_wdata;
+                        end
+                        
+                        else if (ashi_wdata[1:0] == 2'b01 && f0_count) begin
+                            fifo_on_deck <= 1;
+                            new_job      <= (active_fifo == 0);
+                        end
+                        
+                        else if (ashi_wdata[1:0] == 2'b10 && f1_count) begin
+                            fifo_on_deck <= 2;
+                            new_job      <= (active_fifo == 0);                            
+                        end
 
                     // Allow the user to configure the number of data-cycles per packet
                     REG_CYCLES_PER_PKT:

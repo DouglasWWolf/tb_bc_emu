@@ -6,7 +6,7 @@
 //====================================================================================
 // 25-Oct-23  DWW     1  Initial creation
 //====================================================================================
-
+ 
 /*
     The purpose of this module is to stream in bit patterns that are of fixed at 8,
     16, 32, 64, 128, 256, or 512 bits wide, and replicate that pattern across the 

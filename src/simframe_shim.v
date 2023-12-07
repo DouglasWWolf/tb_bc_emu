@@ -47,6 +47,9 @@ module simframe_shim #
     // The fixed portion of the meta-command to be emitted after every frame
     input[511:0] MC_FIXED,
 
+    // Will strobe high for one cycle at the start of a new job
+    input new_job,
+
     //=========================   The input stream   ===========================
     input [DATA_WBITS-1:0] AXIS_IN_TDATA,
     input                  AXIS_IN_TVALID,
@@ -357,7 +360,10 @@ end
 // the next packet of frame data should be stored
 //=============================================================================
 always @(posedge clk) begin
-    case(fsm_state)
+    
+    if (new_job)
+        fd_ptr <= 0;
+    else case(fsm_state)
 
         FSM_START:
             fd_ptr <= 0;
@@ -371,6 +377,7 @@ always @(posedge clk) begin
             end
 
     endcase
+
 end
 //=============================================================================
 
@@ -383,7 +390,11 @@ end
 // the next meta-command should be stored
 //=============================================================================
 always @(posedge clk) begin
-    case(fsm_state)
+    
+    if (new_job)
+        mc_ptr <= 0;
+    
+    else case(fsm_state)
 
         FSM_START:
             mc_ptr <= 0;
@@ -397,6 +408,7 @@ always @(posedge clk) begin
             end
 
     endcase
+
 end
 //=============================================================================
 
@@ -469,6 +481,10 @@ always @(posedge clk) begin
             end
 
     endcase
+
+    // Whenever a new job starts, reset the frame counter
+    if (new_job) frame_count <= 1;
+
 end
 //=============================================================================
 
